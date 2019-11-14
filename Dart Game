@@ -1,0 +1,90 @@
+'''
+Author: Cthulhu
+Date: November 13, 2019
+Version. 0.0.73
+'''
+import time
+import random
+
+print("OK bud the game is simple, in a few seconds you are going to recieve the model of a dart board with cordinate points")
+print("The CENTER is worth: 10\nThe 2nd layer INSIDE OUT is worth: 6\nThe 3rd layer is worth: 3\nThe 4th layer is worth: 1")
+print("Anything else is worth: 0\nAND Yes you can go into the negatives section but that will also give you 0")
+print("\nThere is always a chance that the dart will go a few coordinates to the right or left so chose wisely")
+time.sleep(5)
+print("   0_10_20_30_40_50_60_70_80_90_100")
+print("  0|              1              |")
+print(" 10|   ______________________    |")
+print(" 20|   |   _______3_______   |   |")
+print(" 30|   |  |   ____6_____  |  |   |")
+print(" 40|   |  |  |         |  |  |   |")
+print(" 50|   |  |  |   10    |  |  |   |")
+print(" 60|   |  |  |_________|  |  |   |")
+print(" 70|   |  |_______________|  |   |")
+print(" 80|   |_____________________|   |")
+print(" 90|                             |")
+print("100|_____________________________|\n")
+
+def main():
+    '''
+    This is the beggining of the code, there are no parameters.
+    If latter on I write "main()" I tell the program to start over again.
+    '''
+
+    xInput = input("Give me a X value between 1 - 100: ")
+    yInput = input("Give me a Y value between 1 - 100: ")
+
+    def intcheck(xint, yint):
+        '''
+        This checks that the user input is indeed an int.
+        Returns: True is x/yInput is an integer.
+                 If it catches the error ValueError it returns false.
+        Parameters: it will take both the inputs.
+        '''
+        try:
+            int(xint)
+            int(yint)
+            return True
+        except ValueError:
+            return False
+
+    intcheck(xInput, yInput)
+
+    if intcheck(yInput, xInput):
+        '''
+        The if statement will check that intcheck is true, it it is true then it run the game.
+        '''
+
+        def score_throw(x, y):
+            '''
+            This is the main chunck of code that will be the game itself
+            It will take the x/yInput give it a random change of going either left or right
+            and based of the cordinate it will give out a score.
+            Returns: A score depending on your cordinates + the random chance.
+            Parameters: Again this will take the inputs of x/yInput
+            '''
+            xThrow = int(x) + random.randint(1, 50)
+            yThrow = int(y) + random.randint(1, 50)
+
+            if 30 <= xThrow <= 70 and 30 <= yThrow <= 70:
+                return 10
+            elif 20 <= xThrow <= 80 and 20 <= yThrow <= 80:
+                return 6
+            elif 10 <= xThrow <= 90 and 10 <= yThrow <= 90:
+                return 3
+            elif 0 <= xThrow <= 100 and 0 <= yThrow <= 100:
+                return 1
+            else:
+                return 0
+
+        print("Your score is: "+(str(score_throw(xInput, yInput)))+"\n")
+        main()
+
+    else:
+        '''
+        If the if statement is not true, then it will tell you to double check your answer.
+        '''
+        print("Ether X or Y is not an integer, please make sure to use numbers and no decimal point.\n")
+        main()
+
+
+main()
